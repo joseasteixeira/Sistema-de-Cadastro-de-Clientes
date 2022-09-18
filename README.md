@@ -1,0 +1,2 @@
+# Sistema-de-Cadastro-de-Clientes
+Sistema em Java com as seguintes especificações:     A) Cadastro para 100 pessoas com código, nome e telefone.(utilize vetor).     B) O código será o identificador da pessoa.     C) O sistema deverá ter um menu com as seguintes opções:     1. Cadastrar pessoa.     2. Listar pessoa.     3. Alterar pessoa.     4. Excluir pessoa.     5. Sair.     D) O sistema deverá listar apenas as pessoa cadastradas.     E) O sistema deverá informar quando a agenda estiver cheia.
