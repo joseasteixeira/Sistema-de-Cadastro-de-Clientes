@@ -14,13 +14,40 @@ public class FuncoesMenuPrincipal {
     private Cadastro[] cadastro=new Cadastro[100];
     private int cont=0, aux=-1;
     
+    public int tratamentoCodigo(int codigo){
+        int codigo2=0;
+        while(codigo2==0){
+            try{
+                codigo2=Integer.parseInt(JOptionPane.showInputDialog("Informe o codigo (números):"));     
+            }catch(Exception caracters){
+                JOptionPane.showMessageDialog(null,"O codigo informado é invalido, digite um codigo apenas com numeros!");
+            }
+        }
+        return codigo2;
+    }
+    
     public void cadastrarPessoa(){
+        int codigo=0;
         if(cont<cadastro.length){
-            int codigo=Integer.parseInt(JOptionPane.showInputDialog("Informe o codigo (números):"));
+            codigo=this.tratamentoCodigo(codigo);
+            /*while(codigo==0){
+                try{
+                    codigo=Integer.parseInt(JOptionPane.showInputDialog("Informe o codigo (números):"));     
+                }catch(Exception caracters){
+                    JOptionPane.showMessageDialog(null,"O codigo informado é invalido, digite um codigo apenas com numeros!");
+                }
+            }*/
             if(cont>0){
                 while(verificarCodigoExiste(codigo)){
                     JOptionPane.showMessageDialog(null,"O codigo informado ja existe, digite um codigo diferente!");
-                    codigo=Integer.parseInt(JOptionPane.showInputDialog("Informe o codigo (números):"));
+                    codigo=this.tratamentoCodigo(codigo);
+                    /*while(codigo==0){
+                        try{
+                            codigo=Integer.parseInt(JOptionPane.showInputDialog("Informe o codigo (números):"));     
+                        }catch(Exception caracters){
+                            JOptionPane.showMessageDialog(null,"O codigo informado é invalido, digite um codigo apenas com numeros!");
+                        }
+                    }*/
                 }
             }
             cadastro[cont]=new Cadastro(codigo, JOptionPane.showInputDialog("Informe o nome:"),
