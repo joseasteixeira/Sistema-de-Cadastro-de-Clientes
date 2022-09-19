@@ -16,9 +16,15 @@ public class FuncoesMenuPrincipal {
     
     public void cadastrarPessoa(){
         if(cont<cadastro.length){
-            cadastro[cont]=new Cadastro(Integer.parseInt(JOptionPane.showInputDialog("Informe o codigo (números):")),
-                                JOptionPane.showInputDialog("Informe o nome:"),
-                                JOptionPane.showInputDialog("Informe o telefone:"));
+            int codigo=Integer.parseInt(JOptionPane.showInputDialog("Informe o codigo (números):"));
+            if(cont>0){
+                while(verificarCodigoExiste(codigo)){
+                    JOptionPane.showMessageDialog(null,"O codigo informado ja existe, digite um codigo diferente!");
+                    codigo=Integer.parseInt(JOptionPane.showInputDialog("Informe o codigo (números):"));
+                }
+            }
+            cadastro[cont]=new Cadastro(codigo, JOptionPane.showInputDialog("Informe o nome:"),
+                                                JOptionPane.showInputDialog("Informe o telefone:"));
             cont++;
         }else{
             JOptionPane.showMessageDialog(null,"Infelismente não podemos "
@@ -54,7 +60,7 @@ public class FuncoesMenuPrincipal {
                         JOptionPane.showMessageDialog(null,"Alteração realizada com scesso!");
                     break;
                     case 3:
-                        cadastro[aux].setNome(JOptionPane.showInputDialog("Informe o novo telefone:"));
+                        cadastro[aux].setTelefone(JOptionPane.showInputDialog("Informe o novo telefone:"));
                         JOptionPane.showMessageDialog(null,"Alteração realizada com scesso!");
                     break;
                 }
@@ -85,19 +91,35 @@ public class FuncoesMenuPrincipal {
         if(cont==0){
             JOptionPane.showMessageDialog(null,"Ainda nõ existe pessoas cadastradas!");
         }else{
+            
             int codigo;
             aux=-1;
             codigo=Integer.parseInt(JOptionPane.showInputDialog("Informe o codigo da pessoa:"));
+            if(verificarCodigoExiste(codigo)){
+                bool=true;
+            }
+            /*for(int i=0;i<cont;i++){
+                if(cadastro[i].getCodigo()==codigo){
+                    aux=i;
+                    bool=true;
+                }
+            }*/
+            if(aux==-1){
+                JOptionPane.showMessageDialog(null,"Cadastro não encontrada!");
+            }
+        }
+        return bool;
+    }
+    
+    public boolean verificarCodigoExiste(int codigo){
+        boolean bool=false;
             for(int i=0;i<cont;i++){
                 if(cadastro[i].getCodigo()==codigo){
                     aux=i;
                     bool=true;
                 }
             }
-            if(aux==-1){
-                JOptionPane.showMessageDialog(null,"Cadastro não encontrada!");
-            }
-        }
+
         return bool;
     }
 }
