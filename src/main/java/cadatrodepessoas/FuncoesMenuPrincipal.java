@@ -19,7 +19,7 @@ public class FuncoesMenuPrincipal {
         while(codigo2==0){
             try{
                 codigo2=Integer.parseInt(JOptionPane.showInputDialog("Informe o codigo (números):"));     
-            }catch(Exception caracters){
+            }catch(NumberFormatException caracters){
                 JOptionPane.showMessageDialog(null,"O codigo informado é invalido, digite um codigo apenas com numeros!");
             }
         }
@@ -30,24 +30,10 @@ public class FuncoesMenuPrincipal {
         int codigo=0;
         if(cont<cadastro.length){
             codigo=this.tratamentoCodigo(codigo);
-            /*while(codigo==0){
-                try{
-                    codigo=Integer.parseInt(JOptionPane.showInputDialog("Informe o codigo (números):"));     
-                }catch(Exception caracters){
-                    JOptionPane.showMessageDialog(null,"O codigo informado é invalido, digite um codigo apenas com numeros!");
-                }
-            }*/
             if(cont>0){
                 while(verificarCodigoExiste(codigo)){
                     JOptionPane.showMessageDialog(null,"O codigo informado ja existe, digite um codigo diferente!");
                     codigo=this.tratamentoCodigo(codigo);
-                    /*while(codigo==0){
-                        try{
-                            codigo=Integer.parseInt(JOptionPane.showInputDialog("Informe o codigo (números):"));     
-                        }catch(Exception caracters){
-                            JOptionPane.showMessageDialog(null,"O codigo informado é invalido, digite um codigo apenas com numeros!");
-                        }
-                    }*/
                 }
             }
             cadastro[cont]=new Cadastro(codigo, JOptionPane.showInputDialog("Informe o nome:"),
@@ -60,7 +46,7 @@ public class FuncoesMenuPrincipal {
     }
     
     public void listarPessoa(){
-        if(this.verificarCodigo()){
+        if(this.classificarCodigo()){
         JOptionPane.showMessageDialog(null,"Dados da pessoa procurada:"
                                 + "\nCodigo: "+cadastro[aux].getCodigo()
                                 + "\nNome: "+cadastro[aux].getNome()
@@ -69,7 +55,7 @@ public class FuncoesMenuPrincipal {
     }
     
     public void alterarPessoa(){
-        if(this.verificarCodigo()){
+        if(this.classificarCodigo()){
             int opcoesDeEdicao=0;
             do{
                 opcoesDeEdicao=Integer.parseInt(JOptionPane.showInputDialog("Opções:"
@@ -79,15 +65,23 @@ public class FuncoesMenuPrincipal {
                                         + "\n4. Retornar ao Menu Principal."));
                 switch(opcoesDeEdicao){
                     case 1:
-                        cadastro[aux].setCodigo(Integer.parseInt(JOptionPane.showInputDialog("Informe o novo codigo:")));
+                        int novoCodigo=0;
+                        novoCodigo=this.tratamentoCodigo(novoCodigo);
+                        if(cont>0){
+                            while(verificarCodigoExiste(novoCodigo)){
+                            JOptionPane.showMessageDialog(null,"O codigo informado ja existe, digite um codigo diferente!");
+                            novoCodigo=this.tratamentoCodigo(novoCodigo);
+                        }
+        }
+                        cadastro[aux].setCodigo(novoCodigo);
                         JOptionPane.showMessageDialog(null,"Alteração realizada com scesso!");
                     break;
                     case 2:
-                        cadastro[aux].setNome(JOptionPane.showInputDialog("Informe o novo nome:"));
+                        cadastro[aux].setNome(JOptionPane.showInputDialog("Informe o novo nome:",cadastro[aux].getNome()));
                         JOptionPane.showMessageDialog(null,"Alteração realizada com scesso!");
                     break;
                     case 3:
-                        cadastro[aux].setTelefone(JOptionPane.showInputDialog("Informe o novo telefone:"));
+                        cadastro[aux].setTelefone(JOptionPane.showInputDialog("Informe o novo telefone:", cadastro[aux].getTelefone()));
                         JOptionPane.showMessageDialog(null,"Alteração realizada com scesso!");
                     break;
                 }
@@ -96,7 +90,7 @@ public class FuncoesMenuPrincipal {
     }
     
     public void excluirPessoa(){
-        if(this.verificarCodigo()){
+        if(this.classificarCodigo()){
             if(aux<(cont-1)){
                 Cadastro cadastroAux=new Cadastro();
                 for(int i=aux;i<(cont-1);i++){
@@ -113,7 +107,7 @@ public class FuncoesMenuPrincipal {
         }
     }
     
-    public boolean verificarCodigo(){
+    public boolean classificarCodigo(){
         boolean bool=false;
         if(cont==0){
             JOptionPane.showMessageDialog(null,"Ainda nõ existe pessoas cadastradas!");
@@ -125,12 +119,6 @@ public class FuncoesMenuPrincipal {
             if(verificarCodigoExiste(codigo)){
                 bool=true;
             }
-            /*for(int i=0;i<cont;i++){
-                if(cadastro[i].getCodigo()==codigo){
-                    aux=i;
-                    bool=true;
-                }
-            }*/
             if(aux==-1){
                 JOptionPane.showMessageDialog(null,"Cadastro não encontrada!");
             }
