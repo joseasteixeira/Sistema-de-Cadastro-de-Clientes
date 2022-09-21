@@ -58,11 +58,16 @@ public class FuncoesMenuPrincipal {
         if(this.classificarCodigo()){
             int opcoesDeEdicao=0;
             do{
-                opcoesDeEdicao=Integer.parseInt(JOptionPane.showInputDialog("Opções:"
+                try{
+                    opcoesDeEdicao=Integer.parseInt(JOptionPane.showInputDialog("Opções:"
                                         + "\n1. Editar Codigo."
                                         + "\n2. Editar Nome."
                                         + "\n3. Editar Telefone"
                                         + "\n4. Retornar ao Menu Principal."));
+                }catch(NumberFormatException opcoesValidas2){
+                    
+                }
+                
                 switch(opcoesDeEdicao){
                     case 1:
                         int novoCodigo=0;
@@ -84,6 +89,10 @@ public class FuncoesMenuPrincipal {
                         cadastro[aux].setTelefone(JOptionPane.showInputDialog("Informe o novo telefone:", cadastro[aux].getTelefone()));
                         JOptionPane.showMessageDialog(null,"Alteração realizada com scesso!");
                     break;
+                    case 4:
+                        
+                    break;
+                    default: JOptionPane.showMessageDialog(null,"Opção invalida!");
                 }
             }while(opcoesDeEdicao!=4);
         }
@@ -113,9 +122,14 @@ public class FuncoesMenuPrincipal {
             JOptionPane.showMessageDialog(null,"Ainda nõ existe pessoas cadastradas!");
         }else{
             
-            int codigo;
+            int codigo=0;
             aux=-1;
-            codigo=Integer.parseInt(JOptionPane.showInputDialog("Informe o codigo da pessoa:"));
+            try{
+                codigo=Integer.parseInt(JOptionPane.showInputDialog("Informe o codigo da pessoa:"));
+            }catch(NumberFormatException a){
+                
+            }
+            
             if(verificarCodigoExiste(codigo)){
                 bool=true;
             }

@@ -30,12 +30,19 @@ public class Main {
         
         FuncoesMenuPrincipal menuPricipal=new FuncoesMenuPrincipal();
         do{
-            opcoes=Integer.parseInt(JOptionPane.showInputDialog("Opções:"
-                    + "\n1. Cadastrar pessoa."
-                    + "\n2. Listar pessoa."
-                    + "\n3. Alterar pessoa."
-                    + "\n4. Excluir pessoa."
-                    + "\n5. Sair."));
+            //while(opcoes==0){
+                try{
+                    opcoes=Integer.parseInt(JOptionPane.showInputDialog("Opções:"
+                        + "\n1. Cadastrar pessoa."
+                        + "\n2. Listar pessoa."
+                        + "\n3. Alterar pessoa."
+                        + "\n4. Excluir pessoa."
+                        + "\n5. Sair."));
+                }catch(NumberFormatException opcoesValidas){
+                    //JOptionPane.showMessageDialog(null,"Escolha uma das opções listadas!");
+                }
+            //}
+            
             switch(opcoes){
                 case 1:
                     menuPricipal.cadastrarPessoa();
@@ -49,6 +56,10 @@ public class Main {
                 case 4:
                     menuPricipal.excluirPessoa();
                 break;
+                case 5: 
+                    //
+                break;
+                default: JOptionPane.showMessageDialog(null,"Opção invalida!");
             }
         }while(opcoes!=5);
     }
